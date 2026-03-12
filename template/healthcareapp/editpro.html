@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- /////////////Bootstrap////////////////// -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <!-- /////////////Bootstrap Icon////////////////// -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- /////////////google fonts/////////////// -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+        rel="stylesheet">
+    <title>Edit Profile</title>
+    <style>
+        body {
+            background-color: #1c2833;
+        }
+
+        *:focus {
+            outline: none;
+        }
+
+        .topbar {
+            background-color: teal;
+            overflow: hidden;
+        }
+
+        .topbar a {
+            float: right;
+            color: whitesmoke;
+            text-align: center;
+            padding: 20px 26px;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .box {
+            box-sizing: border-box;
+            width: 200px;
+            height: 200px;
+            border: 2px solid #14af9f;
+            box-shadow: -3px -3px 7px #ffffff73,
+                3px 3px 5px rgba(94, 104, 121, 0.288);
+            border-radius: 50%;
+            background-color: black;
+            margin-top: 20px;
+            overflow: hidden;
+            transition: all 1s;
+        }
+
+        img {
+            box-sizing: border-box;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0;
+            border: 5px solid #14af9f;
+            padding: 3px;
+            background-color: white;
+            transition: all 1s;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+
+            display: block;
+            box-sizing: border-box;
+            background: none;
+            color: #14af9f;
+            margin-bottom: 25px;
+            padding: 4px;
+            width: 280px;
+            height: 32px;
+            border: none;
+            border-bottom: 1px solid #14af9f;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            transition: 0.2s ease;
+        }
+        input[type="text"] {
+            margin-top: 25px;
+
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type='number']:focus{
+            border-bottom: 2px solid #14af9f;
+            border-bottom-right-radius: 20px;
+            color: #14af9f;
+            transition: 0.2 ease;
+        }
+
+        button[type='submit'] {
+            border: 1px solid #14af9f;
+            background-color: black;
+            color: white;
+            height: 30px;
+            width: 100px;
+            border-radius: 5px;
+            margin: 0px;
+            transition: all 0.3s;
+        }
+
+        button[type='submit'] {
+            transform: scale(1.1);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            box-sizing: border-box;
+            font-size: 20px;
+            background-color: black;
+            color: white;
+            border: 1px solid #14af9f;
+            padding: 2px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        label {
+            background-color: #14af9f;
+            color: black;
+        }
+
+        .box {
+            width: 400px;
+            height: auto;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .box img {
+            width: 150px;
+            height: 150px;
+            /* margin: 20px 31%; */
+
+        }
+        button[type='button']{
+            filter: invert(100%);
+            background-color: transparent;
+            border: none;
+            padding: 0% 5px;
+        }
+        .patient_password{
+            display: block;
+            box-sizing: border-box;
+            background: none;
+            color: #14af9f;
+            margin-bottom: 25px !important;
+            padding: 4px;
+            width: 255px !important;
+            height: 32px !important;
+            border: none;
+            border-bottom: 1px solid #14af9f;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 15px !important;
+            transition: 0.2s ease;
+            margin-top: 0px !important;
+        }
+        .patient_password:focus{
+            border-bottom: 2px solid #14af9f;
+            border-bottom-right-radius: 20px !important;
+            color: #14af9f;
+            transition: 0.2 ease;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <div class="topbar">
+            <a href="{% url 'logged_out' %}">logout</a>
+            <a href="{% url 'patient_page' %}">Home</a>
+        </div>
+        {% if success %}
+        <div class="alert alert-success w-25 mx-auto " role="alert">
+            {{ success }}
+        </div>
+        {% endif %}
+
+        {% for patient in data_patient %}
+        <div class="box d-flex flex-column">
+            <img src="{% static 'img/dentl.png' %}" class="mx-auto my-2" alt="">
+            <input type="file" name="" id="file" accept="image/*">
+            <label for="file" class="my-3">Edit Pic</label>
+            <form action="{% url 'view_patient_edit' patient.id %}" name="edit_form" method="POST">
+                {% csrf_token %}
+                <input type="text" name="first_name" placeholder="First Name" value="{{patient.first_name}}">
+                <input type="text" name="last_name" placeholder="Last Name" value="{{patient.last_name}}">
+                <input type="number" name="phone_number" placeholder="Phone No" value="{{patient.phone_number}}">
+                <input type="text" name="state" placeholder="State" value="{{patient.state}}">
+                <input type="text" name="city" placeholder="City" value="{{patient.city}}">
+                <input type="text" name="Address" placeholder="Address" value="{{patient.Address}}">
+                <input type="email" name="email_address" placeholder="Email Address" value="{{patient.email_address}}">
+                <div class="d-flex justify-content-center">
+                    <input type="password" name="password" class="patient_password" placeholder="Password" value="{{patient.password}}">
+                    <button id="eye_btn" type="button" class="" onclick="togglePasswordVisibility() "><i class="bi bi-eye-slash"></i></button>
+                </div>
+                <button type="submit" class="w-50 mx-auto">Update</button>
+            </form>
+        </div>
+        {% endfor %}
+    </center>
+
+
+
+
+
+
+    <script>
+        function togglePasswordVisibility() {
+            console.log("hello")
+            var x = document.forms['edit_form']['password'];
+            if (x.type === "password") {
+                x.type = "text";
+                var eye_btn = document.getElementById('eye_btn').innerHTML='<i class="bi bi-eye"></i>'
+            }else {
+                x.type = "password";
+                var eye_btn = document.getElementById('eye_btn').innerHTML='<i class="bi bi-eye-slash"></i>'
+            }
+        }
+    </script>
+</body>
+
+</html>

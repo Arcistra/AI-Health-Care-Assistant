@@ -1,0 +1,711 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- /////////////Bootstrap////////////////// -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- /////////////google fonts/////////////// -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+        rel="stylesheet">
+    <!-- //////////////CSS////////////////////// -->
+    <link rel="stylesheet" href="{% static 'cssfiles/patient.css' %}">
+    <!-- /////////////font awesome/////////////// -->
+    <!-- <link rel="stylesheet" href="css/all.min.css"> -->
+    <title>Patient</title>
+</head>
+<style>
+    .user {
+        display: none;
+    }
+
+    .bot {
+        display: none;
+    }
+
+
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        /* height: 100vh; */
+    }
+
+    .chatbox {
+        width: 100%;
+        height: 600px;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        display: none;
+    }
+
+    .chatbox__support {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+
+    .chatbox__header,
+    .chatbox__footer {
+        display: flex;
+        padding: 10px;
+        background-color: #36bea6;
+        color: white;
+    }
+
+    .chatbox__header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* .chatbox__footer {} */
+
+    .chatbox__messages {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 140px);
+        /* Subtracting the header and footer height */
+        overflow-y: auto;
+    }
+
+    .messages__item {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .messages__item--typing {
+        display: block;
+        /* order: 2; */
+        margin: 0px;
+    }
+
+    .messages__dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #333;
+        animation: typing 1s infinite;
+    }
+
+    .messages__dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .messages__dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+        0% {
+            transform: translateY(0);
+        }
+
+        28% {
+            transform: translateY(-5px);
+        }
+
+        44% {
+            transform: translateY(0);
+        }
+    }
+
+    .messages__item--operator,
+    .messages__item--visitor {
+        width: fit-content;
+        max-width: 300px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .messages__item--operator {
+        margin-left: auto;
+        background-color: #6b6b6b;
+        color: white;
+        border-bottom-right-radius: 0px;
+        /* order: 1; */
+    }
+
+    .messages__item--visitor {
+        margin-right: auto;
+        background-color: #222121;
+        color: #f5f5f5;
+        border-bottom-left-radius: 0px;
+        /* order: 3; */
+    }
+
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+
+
+
+    <div id="wrapper">
+        <div class="overlay">
+        </div>
+        <!-- side bar -->
+        <nav class="fixed-top align-top" id="sidebar-wrapper" role="navigation">
+            <div class="simplebar-content">
+                <a href="#">
+                    <span class="align-middle ml-4 "><strong>AI HealthCare</strong></span>
+                </a>
+                <ul class="navbar-nav align-self-stretch">
+                    <li class="sidebar-header">Patient</li>
+                    <li><a class="nav-link text-left active" role="button"><i class="fas fa-chart-bar"></i>
+                            Dashboard</a>
+                    </li>
+                    <li class="has-sub"><a class="nav-link collapsed text-left" href="#collapseExample2" role="button"
+                            data-toggle="collapse"><i class="fas fa-user"></i>Profile</a>
+                        <div class="collapse menu mega-dropdown" id="collapseExample2">
+                            <div class="dropdown" aria-labelledby="navbarDropdown">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-lg-12 px-2">
+                                            <div class="submenu-box">
+                                                <ul class="list-unstyled m-0">
+                                                    <li><a href="{% url 'view_patient_pro' %}">View Profile</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+        <!-- Sidebar wrapper -->
+
+
+
+        <!-- Page content -->
+
+        <div id="page-content-wrapper">
+            <div id="content">
+                <div class="container-fluid p-0 px-lg-0 px-md-0">
+                    <nav class="navbar navbar-expand navbar-light my-navbar  d-flex justify-content-between">
+                        <div type="button" id="bar" class="nav-icon1 hamburger animated fadeInLeft is-closed"
+                            data-toggle="offcanvas">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+                        <!-- top bar nav -->
+                        <ul class="navbar-nav">
+                            <div>
+                                <li class="nav-item dropdown d-sm-none">
+                                    <div class="dropdown-menu dropdown-menu-right p-3">
+                                        <form class="form-inline mr-2 w-100 navbar-search">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control bg-light border-0 small"
+                                                    placeholder="search for...">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button"><i
+                                                            class="fas fa-search fa-sm"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                            </div>
+
+                            <div>
+                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="userDropdown"
+                                        role="button" data-toggle="dropdown" href="#">
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">AI HealthCare</span>
+                                        <img class="img-profile rounded-circle" src="{% static 'img/dentl.png' %}"
+                                            alt='alslssd'></a>
+                                </li>
+                            </div>
+
+                            <div class="d-flex ">
+                                <li class="my-auto mx-5 text-secondary">Your Email : {{Your_Email}}</li>
+                                <a href="{% url 'logged_out' %}"
+                                    class="btn btn-info my-auto mx-2 text-white  ">LogOut</a>
+                            </div>
+                        </ul>
+                    </nav>
+                    <!-- end of top bar -->
+
+                    <!-- begin page content -->
+
+                    <div class="container-fluid px-lg-4">
+                        <div class="row">
+                            <div class="col-md-12 mt-lg-4 mt-4">
+                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn card-title mb-1" data-toggle="modal"
+                                            data-target="#exampleModal">
+                                            Make Appointment
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title text-Dark text-center"
+                                                            id="exampleModalLabel">Make Your Appointment Today</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <!--/////////////////// Make Appointments Fields add dynamically /////////////////// -->
+
+                                                        <form action="" method="POST"
+                                                            class="w-75 px-4 mx-auto  d-flex flex-column ">
+                                                            {% csrf_token %}
+                                                            {% for i in patient %}
+                                                            <div class="form-row">
+                                                                <div class="col-lg-12">
+                                                                    <input type="text" name="patient_name"
+                                                                        value="{{i.first_name}} {{i.last_name}}"
+                                                                        class=" form-control my-2 p-3" required
+                                                                        readonly>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="col-lg-12">
+                                                                    <input type="text" name="patient_age"
+                                                                        placeholder="Enter Your age"
+                                                                        class=" form-control my-2 p-3" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="col-lg-12">
+                                                                    <input type="text" name="patient_disease"
+                                                                        placeholder="Disease"
+                                                                        class=" form-control my-2 p-3" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="col-lg-12">
+                                                                    <textarea type="text" name="patient_description"
+                                                                        placeholder="Please tell us about your problem!"
+                                                                        class=" form-control my-2 p-3"
+                                                                        required></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row">
+                                                                <div class="col-lg-12">
+                                                                    <input type="text" name="patient_email"
+                                                                        value="{{i.email_address}}"
+                                                                        class=" form-control my-2 p-3" required
+                                                                        readonly>
+                                                                </div>
+                                                            </div>
+                                                            {% endfor %}
+                                                            <div class="form-row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="input-group">
+                                                                        <select name="doctor" class="custom-select"
+                                                                            id="inputGroupSelect04"
+                                                                            aria-label="Example select with button addon">
+                                                                            <option selected>Select Doctor...</option>
+                                                                            {% for j in doc_data %}
+                                                                            <option value="{{j.id}}">{{j.doc_name}}
+                                                                            </option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit"
+                                                                class="btn btn-primary mt-4 w-100">Make Appointment
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn card-title px-3 mx-auto mb-1"
+                                            data-toggle="modal" data-target="#exampleModalTwo">
+                                            Previous Treatments
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade " id="exampleModalTwo" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content ">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title text-Dark text-center"
+                                                            id="exampleModalLabel">Your Previous Treatments</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div id="id_modalbody" class="modal-body row  ">
+                                                        <div class="card mb-3 content ">
+                                                            <div class="table-responsive">
+                                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing
+                                                                    elit. Animi adipisci dolores aliquid quidem quaerat
+                                                                    voluptates ab. Tempora odio eveniet facere
+                                                                    doloremque. Explicabo, ab!</p>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn card-title px-3 mx-auto mb-1"
+                                            data-toggle="modal" data-target="#exampleModalThree">
+                                            AI Assistant
+                                        </button>
+                                        <div class="modal fade " id="exampleModalThree" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content rounded">
+                                                    <!--///////////// chat_bot ///////////////-->
+
+                                                    <div class="container">
+                                                        <div class="chatbox d-block">
+                                                            <div class="chatbox__support">
+                                                                <div class="chatbox__header">
+                                                                    <div class="chatbox__image--header">
+                                                                        <img class="img-fluid rounded-circle"
+                                                                            src="{% static 'img/image.jpg' %}"
+                                                                            alt="image" width="70">
+                                                                    </div>
+                                                                    <div class="chatbox__content--header">
+                                                                        <h4 class="chatbox__heading--header">AI
+                                                                            HealthCare</h4>
+                                                                        <p class="chatbox__description--header"
+                                                                            style="line-height: 3px;">Ask your
+                                                                            Problem</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="chatbox__messages ">
+
+                                                                </div>
+                                                                <div class="chatbox__footer">
+                                                                    <img src="{% static 'img/icons/emojis.svg' %}"
+                                                                        class="mx-1">
+                                                                    <img src="{% static 'img/icons/microphone.svg' %}"
+                                                                        class="mx-1">
+                                                                    <form action="" method="post" class="d-flex w-100">
+                                                                        <input type="text" name="msg_operator"
+                                                                            class="form-control mx-1 border border-2 border-secondary w-100"
+                                                                            placeholder="Write a message..." required>
+                                                                        <a src="{% static 'img/icons/attachment.svg' %}"
+                                                                            alt=""></a>
+                                                                        <button
+                                                                            class="btn btn-light  chatbox__send--footer mx-1 border border-2 border-secondary ">Send</a>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="chatbox__button d-none">
+                                                            <button>button</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- ///////////////////// chat_bot End /////////////// -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-12 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-md-flex align-items-center">
+                            <div>
+                                <h4 class="card-title">
+                                    Your Appointments
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table v-middle">
+                            <thead>
+                                <tr class="bg-light">
+                                    <th class="border-top-0">Dr Name</th>
+                                    <th class="border-top-0">Room No</th>
+                                    <th class="border-top-0">Department</th>
+                                    <th class="border-top-0">Designation</th>
+                                    <th class="border-top-0">Timming</th>
+                                    <th class="border-top-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for appinfo in appointinfo.rcds %}
+                                <tr id="{{appinfo.id}}">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="m-r-10">
+                                                <a class="btn btn-circle btn-info text-white">Dr</a>
+                                            </div>
+                                            <div>
+                                                <h4 id="id_doctorname" class="m-b-0 font-16">
+                                                    {{appinfo.Doctor.doc_name}}
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{appinfo.Doctor.doc_room}}</td>
+                                    <td>{{appinfo.Doctor.doc_specialization}}</td>
+                                    <td><label for="label label-danger">{{appinfo.Doctor.doc_post}}</label></td>
+                                    <td><label for="label label-danger">{{appinfo.Doctor.doc_timming}}</label></td>
+                                    {% if appinfo.id in appointinfo.ids %}
+                                    <td><a id="review_btn" class="btn btn-secondary">Reviewed</a></td>
+                                    {% else %}
+                                    <td><a id="review_btn" href="{% url 'review_func' appinfo.id  %}"
+                                            class="btn btn-success">Review</a></td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <span class="step-links border d-flex justify-content-end w-100 px-5">
+                            {% if appointinfo.rcds.has_previous %}
+                            <a href="?page=1" class="mx-2 btn btn-info">&laquo; first</a>
+                            <a href="?page={{ appointinfo.rcds.previous_page_number }}"
+                                class="mx-2 btn btn-info">previous</a>
+                            {% endif %}
+
+                            <span class="current-page text-dark my-auto bg-light mx-3 px-3 border">
+                                {{ appointinfo.rcds.number }}
+                            </span>
+
+                            {% if appointinfo.rcds.has_next %}
+                            <a href="?page={{ appointinfo.rcds.next_page_number }}" class="mx-2 btn btn-info">next</a>
+                            <a href="?page={{ appointinfo.rcds.paginator.num_pages }}" class="mx-2 btn btn-info">last
+                                &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row text-muted">
+                <div class="col-6 text-left">
+                    <p class="mb-0">
+                        <a href="#" class="text-muted">
+                            <strong>Dashboard AI HealthCare &copy;</strong>
+                        </a>
+                    </p>
+                </div>
+                <div class="col-6 text-right">
+                    <ul class="list-inline">
+                        <li class="footer-item">
+                            <a href="#" class="text-muted">
+                                Support
+                            </a>
+                        </li>
+
+                        <li class="footer-item">
+                            <a href="#" class="text-muted">
+                                Help Center
+                            </a>
+                        </li>
+
+                        <li class="footer-item">
+                            <a href="#" class="text-muted">
+                                Privacy
+                            </a>
+                        </li>
+
+                        <li class="footer-item">
+                            <a href="#" class="text-muted">
+                                Terms
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="{% static 'js/doc.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+        // / / / JavaScript for chatbot animations and interactions
+        document.querySelector(".chatbox__button button").addEventListener("click", function () {
+            var chatbox = document.querySelector(".chatbox");
+
+            if (chatbox.style.display === "none") {
+                chatbox.style.display = "block";
+            } else {
+                chatbox.style.display = "none";
+            }
+        });
+
+        $(document).ready(function () {
+            // Event handler for send button click
+            $(".chatbox__send--footer").on("click", function (e) {
+                e.preventDefault();
+                var message = $("input[name='msg_operator']").val(); // Get the user's message
+                // $(".chatbox__messages .user").hide();
+                $(".chatbox__messages ").append("<div class=' user messages__item messages__item--operator'>" + message + "</div>");
+                $(".user").show();
+                // $(".chatbox__messages ").append("<div class='messages__item messages__item--typing'><span class='messages__dot mx-1'></span><span class='messages__dot mx-1'></span><span class='messages__dot mx-1'></span></div>");
+
+                // $(".messages__item--typing").show();
+                // Send the message to the Django view using AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'chat_msg' %}",
+                    data: {
+                        message: message,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    },
+
+                    success: function (response) {
+                        // Hide typing indicator
+                        $("input[name='msg_operator']").val("");
+
+                        $(".messages__item--typing").hide();
+
+                        $(".chatbox__messages").append("<div class=' bot messages__item messages__item--visitor'>" + response.message + "</div>");
+                        $(".bot").show();
+
+                        // Clear the message input
+                    },
+                    error: function (error) {
+                        // Hide typing indicator
+                        $(".messages__item--typing").hide();
+
+                        console.error("Error:", error);
+                    }
+                });
+            });
+        });
+
+
+        $('#bar').click(function () {
+            $(this).toggleClass('open');
+            $('#page-content-wrapper ,#sidebar-wrapper').toggleClass('toggled');
+        });
+        var reviewBtn = document.getElementById("review_btn")
+
+        if (reviewBtn.disabled) {
+            reviewBtn.innerText = "Reviewed";
+        }
+    </script>
+</body>
+
+</html>

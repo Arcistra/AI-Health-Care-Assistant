@@ -1,0 +1,847 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HealthCare</title>
+    <!-- /////////////Bootstrap////////////////// -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- /////////////google fonts/////////////// -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<style>
+
+html,body{
+    background-color: #fff;
+    font-family: 'Source Sans Pro',sans-serif;
+    overflow-x: hidden !important;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+*{
+    text-decoration: none !important;
+}
+/* THIS CODE IS FOR MODAL BOX */
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  
+/* ///////////////////////////// */
+.nav{
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px 0 25px;
+    background-color: #fff;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.10);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.nav .links a{
+    margin-right: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+
+.nav .links .mainlink{
+    color: #14af9f;
+}
+
+.nav h4{
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+/* LANDING CSS */
+
+.landing{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10vw 0 10vw;
+    height: 100vh;
+}
+
+.landingText h1{
+    font-size: 6vw;
+    margin: 0 !important;
+}
+
+.landingText h3{
+    margin: 6px !important;
+    font-size: 20px;
+    opacity: 0.3;
+    line-height: 30px;
+}
+
+.landingText .btn{
+    width: 120px;
+    margin-top: 30px;
+    padding: 14px 20px 14px 20px;
+    background-color: #14af9f;
+    border-radius: 45px;
+    text-align: center
+}
+
+.landingText .btn a{
+    font-size: 1.2vw;
+    color: #fff;
+}
+
+.landingImage img{
+    width: 28vw;
+}
+
+
+/* ABOUT CSS */
+
+.about{
+    height: 600px;
+    padding: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.aboutText{
+    position: relative;
+    padding: 0 50px;
+    height: inherit;
+}
+
+.aboutText h1{
+    position: relative;
+    left: 110px;
+}
+
+.aboutText img{
+    width: 25vw;
+    position: absolute;
+    top: 60px;
+}
+
+.aboutList{
+    width: 50%;
+}
+
+ol{
+    list-style: none;
+    color: #14af9f;
+}
+
+ol li{
+    font-size: 34px;
+    position: relative;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+li p{
+    font-size: 16px;
+    color: #000;
+    padding-left: 60px;
+    line-height: 30px;
+    opacity: 0.6;
+}
+
+li span{
+    position: absolute;
+    line-height: 25px;
+    font-weight: 600;
+}
+
+/* INFO_SECTION CSS */
+
+.infoSection{
+    height: 600px;
+}
+
+.infoHeader{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.infoCards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40px 0 40px 0;
+}
+
+.infoCards .card{
+    position: relative;
+    height: 360px;
+    width: 350px;
+    background: #fff;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.09), 0 10px 10px rgba(0,0,0,0.09)
+}
+
+.infoCards .one .cardoneImg{
+    width: 180px;
+    position: absolute;
+    top: -50px;
+    right: -50px;
+}
+.infoCards .two .cardtwoImg{
+    width: 158px;
+    position: absolute;
+    top: -50px;
+    right: -50px;
+}
+.infoCards .three .cardthreeImg{
+    width: 200px;
+    position: absolute;
+    top: -50px;
+    right: -50px;
+}
+
+.cardbgone{
+    height: 150px;
+    background-color: #14af9f;
+}
+.cardbgtwo{
+    height: 150px;
+    background-color: #a1cdff;
+}
+
+.cardContent{
+    padding: 0 20px;
+}
+
+.cardContent h2{
+    font-weight: 600;
+}
+
+.cardContent p{
+    line-height: 30px;
+    opacity: 0.6
+}
+
+
+.cardContent .cardBtn{
+    position: absolute;
+    right: 20px;
+    padding: 10px;
+    background-color: #ededed;
+    width: 25px;
+    height: 20px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease-in-out 0.2s;
+}
+
+.cardContent .cardBtn:hover{
+  background-color: #2f8be0;
+}
+
+.cardContent .cardBtn .cardIcon{
+    position: relative;
+    top:0px;
+    left:0px;
+    width: 16px;
+}
+
+
+/* Banner */
+
+.banner{
+    height: 400px;
+    background-color: #14af9f;
+    display: flex;
+    flex-direction: row;
+    padding: 50px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.bannerText h5 span{
+    font-size: 1vw;
+    color: black;
+    font-weight: 600;
+}
+
+.bannerImg img{
+    width: 20vw;
+}
+
+/* FOOTER CSS */
+
+.footer{
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.footerlinks a{
+    margin: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+.footerlinks .mainlink{
+    color: #e0501b;
+}
+
+
+/* RESPONSIVE */
+
+
+@media only screen and (max-width: 600px){
+
+.nav{
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px;
+    height: auto;
+    overflow-y: hidden;
+}
+
+.nav h4{
+    font-size: 6vw;
+    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.nav .links a{
+    margin-right: 25px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* LANDING PAGE */
+
+.landing{
+    flex-direction: column-reverse;
+    height: 750px;
+    align-items: center;
+    justify-content: center;
+    text-align: center
+}
+
+.landingText h1{
+    font-size: 6vw;
+    margin: 0 !important;
+}
+
+.landingText h3{
+    font-size: 16px;
+}
+
+.landingText .btn{
+    margin: 0 auto;
+}
+
+.landingText .btn a{
+    font-size: 3vw;
+}
+
+.landingImage img{
+    width: 52vw;
+    margin-bottom: 20px;
+}
+
+
+/* ABOUT */
+
+.about{
+    height: auto;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.aboutText{
+    padding: 0 50px;
+    height: 100px;
+}
+
+.aboutText h1{
+    left: 40px;
+    font-size: 5vw;
+}
+
+.aboutText img{
+    width: 16vw;
+    top: 10px;
+    left: -30px;
+}
+
+.aboutList{
+    width: 75%;
+}
+
+ol li{
+    font-size: 26px;
+}
+
+li p{
+    font-size: 14px;
+}
+
+.infoSection{
+    height: auto;
+}
+
+.infoHeader{
+    text-align: center;
+    margin: 40px 0;
+}
+
+.infoCards{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: center
+}
+
+.infoCards .card{
+    margin-bottom: 60px;
+}
+
+.banner{
+    height: auto;
+    flex-direction: column-reverse;
+    padding: 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.banner h1{
+    font-size: 6vw;
+}
+
+.bannerInnerText{
+    font-size: 3vw !important;
+}
+
+.bannerText img{
+    width: 20vw;
+}
+
+.bannerImg img{
+    width: 26vw;
+}
+}
+
+/* Footer */
+.footer{
+    padding-bottom: 40px;
+}
+.set_btn{
+    color: black !important;
+}
+.set_btn:hover{
+    color: blue !important;
+}
+
+
+
+</style>
+<body>
+    <div class="wrapper">
+        <div class="nav">
+            <div class="logo row ml-2">
+                <img src="{% static 'img/logo.png' %}" width="80" height="65" alt="">
+                <h4 class="my-4">AI HealthCare</h4>
+            </div>
+
+            <div class="links">
+                <a href="{% url 'home_page' %}" class="mainlink">Home</a>
+                <a href="#services">Services</a>
+                <a href="#about">About Us</a>
+                <a href="#department">Departments</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#doctors_portfolio_page">Our Doctors</a>
+            </div>
+        </div>
+
+
+
+        <!-- LANDING PAGE -->
+
+        <div class="landing">
+            <div class="landingText" data-aos="fade-up" data-aos-duration="1000">
+                <h1>Medical</h1>
+                <span style="color:#14af9f;font-size: 3vw"> Services That You Can Trust </span>
+                <h3>Need Professional help? Our AI System Will Answer Your Questions. <br> visit Us Now or Make an
+                    Appointment!</h3>
+                <div class="btn">
+                    <a href="{% url 'login_page' %}">Login</a>
+                </div>
+            </div>
+            <div class="landingImage" data-aos="fade-down" data-aos-duration="2000">
+                <img src="{% static 'img/bg.png' %}" alt="">
+            </div>
+        </div>
+
+        <!-- ABOUT SECTION -->
+
+        <div id="services" class="about">
+            <div class="aboutText" data-aos="fade-up" data-aos-duration="1000">
+                <h1><span style="color:#14af9f;font-size:3vw">What We Offers</span> </h1> <br>
+                <img src="{% static 'img/doctorrobot.png' %}" alt="">
+            </div>
+            <div class="aboutList" data-aos="fade-left" data-aos-duration="1000">
+                <ol>
+                    <li>
+                        <span>01</span>
+                        <p>Chabot for Patients</p>
+                    </li>
+                    <li>
+                        <span>02</span>
+                        <p>taking symptoms -> complete info</p>
+                    </li>
+                    <li>
+                        <span>03</span>
+                        <p>Predict medinces according to diesease</p>
+                    </li>
+                    <li>
+                        <span>04</span>
+                        <p>Book appointment with best doctors</p>
+                    </li>
+
+                    <li>
+                        <span>05</span>
+                        <p>Cancer Detection</p>
+                    </li>
+
+                    <li>
+                        <span>06</span>
+                        <p>Heart Attack Detection and detect many more Disease</p>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- INFO SECTION -->
+
+        <div id="about" class="infoSection">
+            <div class="infoHeader" data-aos="fade-up" data-aos-duration="1000">
+                <h1> Why Patients Choose Our System <br> <span style="color:#14af9f">Advanced technology</span> </h1>
+            </div>
+            <div class="banner">
+                <div class="bannerText" data-aos="fade-right" data-aos-duration="1000">
+                    <h5 class="col-12 col-md-8 col-lg-8 col-xl-8 ml-5 py-5 "><span style=" font-size:1.4vw;font-weight:normal;"
+                            class="bannerInnerText">
+                            Our AI healthcare system is a cutting-edge technology that offers a range of benefits for patients and healthcare providers. It utilizes advanced machine learning and AI techniques to provide accurate and reliable diagnoses and treatment recommendations, and can be used for a variety of healthcare applications. The system is user-friendly and easy to use, with a simple, intuitive interface. It also prioritizes data privacy and security, and is available 24/7. Additionally, it can be customized to the needs of each healthcare facility or organization and it is cost-effective. Our system has been proven to improve patient outcomes, reduce costs, and increase patient satisfaction. It is an ideal solution for healthcare providers looking to improve their patient care and streamline their operations.
+                        </span> </h5>
+                </div>
+                <div class="bannerImg" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="{% static 'img/anim.gif' %}" class="mr-5 pr-5" alt="">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Departments -->
+
+        <div id="department" class="about">
+            <div class="aboutText" data-aos="fade-up" data-aos-duration="1000">
+                <h1><span style="color:#14af9f;font-size:3vw">Our Departments</span> </h1>
+                <img src="{% static 'img/dept.png' %}" alt="">
+            </div>
+            <div class="aboutList" data-aos="fade-left" data-aos-duration="1000">
+                <ol>
+                    <li>
+
+                        <p>Cancer</p>
+                    </li>
+                    <li>
+
+                        <p>Heart</p>
+                    </li>
+                    <li>
+
+                        <p>Dental</p>
+                    </li>
+                    <li>
+
+                        <p>Psycology</p>
+                    </li>
+
+                    <li>
+
+                        <p>Orthopaedics</p>
+                    </li>
+
+                    <li>
+
+                        <p>Paediatrics & Neonatology </p>
+                    </li>
+
+                    <li>
+
+                        <p>Gastroenterology </p>
+                    </li>
+
+                    <li>
+
+                        <p>Chest & Vascular </p>
+                    </li>
+
+                    <li>
+
+                        <p>Pathology </p>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+
+        <!-- End Departments -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- BANNER AND FOOTER -->
+        <br>
+        <div id="portfolio" class="aboutText" data-aos="fade-up" data-aos-duration="1000">
+            <h1><span style="color:#14af9f;font-size:3vw">Our Dedicated Doctors Team</span> </h1> <br> <br>
+
+        </div>
+
+        <div class="infoCards  mx-auto">
+            <div class="card one w-75 mx-2" data-aos="fade-up" data-aos-duration="1000">
+                <img src="{% static 'img/faizan1.jpg' %}" class="" alt="" data-aos="fade-up" data-aos-duration="1100">
+                <div class="cardbgone"></div>
+                <div class="my-3 cardContent">
+                    <h4>Dr. Faizan Ali</h4>
+                    <p>Cardiology Specialist</p>
+                    <a href="#">
+
+                        <div class="cardBtn px-3">
+                            <img src="{% static 'img/next.png' %}" alt="" class="cardIcon">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card two w-75 mx-2" data-aos="fade-up" data-aos-duration="1300">
+                <img src="{% static 'img/fawad.jpg' %}" class="" alt="" data-aos="fade-up" data-aos-duration="1200">
+                <div class="cardbgtwo"></div>
+                <div class="my-3 cardContent">
+                    <h4>Dr. Fawad Tariq</h4>
+                    <p>Neurology Specialist</p>
+                    <a href="#">
+                        <div class="cardBtn">
+                            <img src="{% static 'img/next.png' %}" alt="" class="cardIcon">
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card two w-75 mx-2" data-aos="fade-up" data-aos-duration="1300">
+                <img src="{% static 'img/mamoon.jpg' %}" class="" alt="" data-aos="fade-up" data-aos-duration="1200">
+                <div class="cardbgtwo"></div>
+                <div class="my-3 cardContent">
+                    <h4>Dr. Mamoon Haseeb</h4>
+                    <p>Psychology Specialist</p>
+                    <a href="#">
+                        <div class="cardBtn">
+                            <img src="{% static 'img/next.png' %}" alt="" class="cardIcon">
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card two w-75 mx-2" data-aos="fade-up" data-aos-duration="1300">
+                <img src="{% static 'img/ahsan.jpg' %}" class="" alt="" data-aos="fade-up" data-aos-duration="1200">
+                <div class="cardbgtwo"></div>
+                <div class="my-3 cardContent">
+                    <h4>Dr. Ahsan Hayat</h4>
+                    <p>Dental Specialist</p>
+                    <a href="#">
+                        <div class="cardBtn">
+                            <img src="{% static 'img/next.png' %}" alt="" class="cardIcon">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card two w-75 mx-2" data-aos="fade-up" data-aos-duration="1300">
+                <img src="{% static 'img/Nabeel.jpg' %}" class="" alt="" data-aos="fade-up" data-aos-duration="1200">
+                <div class="cardbgtwo"></div>
+                <div class="my-3 cardContent">
+                    <h4>Dr. Nabeel Akhter</h4>
+                    <p>Cancer Specialist</p>
+                    <a href="#">
+                        <div class="cardBtn">
+                            <img src="{% static 'img/next.png' %}" alt="" class="cardIcon">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="footer">
+            <h2>HealthCare</h2>
+            <div class="footerlinks">
+                <a href="#" class="mainlink">Corona Updates</a>
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="set_btn btn btn-white text-secondary py-0" data-toggle="modal" data-target="#exampleModal">
+                    Help
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="set_btn btn btn-white text-secondary py-0" data-toggle="modal" data-target="#exampleModal">
+                    About us
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="set_btn btn btn-white text-secondary py-0 " data-toggle="modal" data-target="#exampleModal">
+                    Contact
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+    </script>
+</body>
+
+</html>
